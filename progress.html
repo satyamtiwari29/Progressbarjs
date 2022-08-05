@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *
+    {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+width: 100vw;
+height: 100vh;
+    }
+    .container{
+        width: 100vw;
+        height: 42vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: -69px;
+    }
+
+    .progress-container
+    {
+        background-color:darkgray;
+        width: 403px;
+          height: 5px;
+          position: absolute;
+    }
+    .line
+    {
+        background-color: blueviolet;
+        width: 0;
+        height: 100%;
+        z-index: 1;
+
+    }
+    .circle{
+        border: 5px solid dimgray;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    line-height: 29px;
+    text-align: center;
+    z-index: 1;
+    background-color: white;
+    }
+    .circles
+    {
+        height: 100px;
+    display: flex;
+    justify-content: space-between;
+    width: 259px;
+    width: 412px;
+    align-items: center
+    }
+    .buttons
+    {
+        text-align: center;
+        
+    }
+    .button
+    {
+        width: 88px;
+height: 37px;
+margin: 0 32px 0 0;
+background-color: darkmagenta;
+border-radius: 18%;
+border: none;
+padding: 13px;
+    }
+    .circle.active
+    {
+        border-color:blueviolet;
+    }
+    .button.disabled
+    {
+        background-color: dimgray;
+        color: white;
+    }
+
+</style>
+<body>
+    <div class="container">
+        <div class="progress-container">
+        <div class="line"></div>
+    </div>
+        <div class="circles">
+           <span class="circle active">1</span>
+           <span class="circle">2</span>
+           <span class="circle">3</span>
+           <span class="circle">4</span>
+        </div>
+    </div>
+        <div class="buttons">
+            <button class="button Pre disabled" >Pre</button>
+            <button class="button Next">Next</button>
+        </div>
+    <script>
+        const circles=document.querySelectorAll('.circle');
+        const lines=document.querySelector('.line');
+        const Pre=document.querySelector('.Pre');
+        const Next=document.querySelector('.Next');
+        const buttons=document.querySelector('.buttons');
+        let currentpage=1;
+        Next.addEventListener('click',()=>
+        {
+            currentpage++;
+            if(currentpage>circles.length)
+            {
+                currentpage=circles.length;
+            }
+            console.log(currentpage)
+            update();
+         });
+         Pre.addEventListener('click',()=>
+         {
+             currentpage--;
+             if(currentpage<1)
+             {
+                 currentpage=1;
+             }
+             update();
+         });
+         function update()
+         {
+             circles.forEach((circle,indx)=>
+             {
+                 if(indx<currentpage)
+                 {
+                     circle.classList.add('active');
+                 }
+                 else{
+                     circle.classList.remove('active');
+                 }
+             })
+            
+             const actives=document.querySelectorAll('.active');
+            lines.style.width=(actives.length-1)/(circles.length-1)* 100 + '%';
+        }
+        // console.log(currentpage)
+        // if(currentpage===1)
+        // {
+        //     Pre.disabled=true;
+        //     console.log(currentpage)
+        // }
+        // else if(currentpage===circles.length)
+        // {
+        //     Next.disabled=true;
+        // }
+        // else{
+        //     Pre.disabled=false;
+        //     Next.disabled=false;
+        // }
+        
+
+    </script>
+</body>
+</html>
